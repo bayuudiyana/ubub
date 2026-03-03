@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buat bubub 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #ff6b9d;
+      --deep: #c2185b;
+      --soft: #ffd6e7;
+      --cream: #fff9fb;
+      --yellow: #ffe066;
+      --purple: #c77dff;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E💖%3C/text%3E%3C/svg%3E"), auto;
+    }
+
+    /* Floating hearts background */
+    .bg-hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart-float {
+      position: absolute;
+      bottom: -60px;
+      font-size: 1.5rem;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Main layout */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    /* Hero card */
+    .hero-card {
+      background: white;
+      border-radius: 32px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(255,107,157,0.18), 0 2px 8px rgba(255,107,157,0.08);
+      border: 3px solid var(--soft);
+      width: 100%;
+      animation: popIn 0.7s cubic-bezier(.175,.885,.32,1.275) both;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8) translateY(30px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .big-emoji {
+      font-size: 5rem;
+      display: block;
+      animation: heartbeat 1.2s ease-in-out infinite;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.18); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.12); }
+      56% { transform: scale(1); }
+    }
+
+    .hero-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.4rem;
+      color: var(--pink);
+      line-height: 1.2;
+      text-shadow: 3px 3px 0 var(--soft);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: #e91e8c;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    /* Reason cards */
+    .section-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.5rem;
+      color: var(--deep);
+      text-align: center;
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .reason-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 18px rgba(255,107,157,0.12);
+      border: 2px solid var(--soft);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: popIn 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+    }
+
+    .reason-card:hover {
+      transform: translateY(-6px) rotate(-1deg);
+      box-shadow: 0 10px 28px rgba(255,107,157,0.22);
+    }
+
+    .reason-card:nth-child(2) { animation-delay: 0.1s; }
+    .reason-card:nth-child(3) { animation-delay: 0.2s; }
+    .reason-card:nth-child(4) { animation-delay: 0.3s; }
+    .reason-card:nth-child(5) { animation-delay: 0.4s; }
+    .reason-card:nth-child(6) { animation-delay: 0.5s; }
+
+    .reason-icon { font-size: 2.2rem; margin-bottom: 0.4rem; display: block; }
+    .reason-text { font-size: 0.85rem; font-weight: 700; color: #c2185b; }
+
+    /* Question card */
+    .question-card {
+      background: linear-gradient(135deg, var(--pink), var(--purple));
+      border-radius: 28px;
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(199,125,255,0.25);
+      width: 100%;
+      color: white;
+      animation: popIn 0.7s 0.6s cubic-bezier(.175,.885,.32,1.275) both;
+    }
+
+    .question-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.6rem;
+      margin-bottom: 1.4rem;
+      line-height: 1.4;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-yes {
+      background: white;
+      color: var(--pink);
+      border: none;
+      border-radius: 50px;
+      padding: 0.85rem 2.2rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    }
+
+    .btn-no {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 50px;
+      padding: 0.85rem 2.2rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.1s;
+      position: relative;
+    }
+
+    /* Winner screen */
+    .winner-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ff6b9d, #c77dff, #ff6b9d);
+      background-size: 300% 300%;
+      animation: gradientMove 3s ease infinite;
+      z-index: 100;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .winner-overlay.show { display: flex; }
+
+    .winner-emoji {
+      font-size: 6rem;
+      animation: spin 1s ease-out both, heartbeat 1.2s ease-in-out 1s infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(-360deg) scale(0); }
+      to   { transform: rotate(0) scale(1); }
+    }
+
+    .winner-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.8rem;
+      color: white;
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .winner-msg {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+      text-align: center;
+      padding: 0 2rem;
+      line-height: 1.6;
+    }
+
+    .winner-close {
+      margin-top: 1rem;
+      background: white;
+      color: var(--pink);
+      border: none;
+      border-radius: 50px;
+      padding: 0.8rem 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    /* Sticker row */
+    .sticker-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      font-size: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .sticker {
+      display: inline-block;
+      animation: wiggle 2s ease-in-out infinite;
+      cursor: default;
+    }
+
+    .sticker:nth-child(2) { animation-delay: 0.2s; }
+    .sticker:nth-child(3) { animation-delay: 0.4s; }
+    .sticker:nth-child(4) { animation-delay: 0.6s; }
+    .sticker:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-8deg); }
+      50% { transform: rotate(8deg); }
+    }
+
+    /* Footer */
+    .footer-text {
+      font-family: 'Pacifico', cursive;
+      font-size: 1rem;
+      color: var(--pink);
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 440px) {
+      .reasons-grid { grid-template-columns: 1fr 1fr; }
+      .hero-title { font-size: 1.9rem; }
+      .question-text { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="bg-hearts" id="bgHearts"></div>
+
+<!-- Winner overlay -->
+<div class="winner-overlay" id="winnerOverlay">
+  <span class="winner-emoji">💍</span>
+  <div class="winner-title">YAY! AKU TAHU ITU! 🎉</div>
+  <div class="winner-msg">Makasih udah mau jadi pacarku yang paling cuantik, lucuu, dan bikin hari-hariku jadi berwarna! 🌈<br><br>Kamu memang yang terbaik dari yang terbaik! 💖✨</div>
+  <div class="sticker-row" style="font-size:2.5rem;">🥳🎊💕🎀🌸</div>
+  <button class="winner-close" onclick="closeWinner()">Aww makasih sayang 🥹</button>
+</div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero-card">
+    <span class="big-emoji">💘</span>
+    <h1 class="hero-title">Hei, bubub! 👀</h1>
+    <p class="hero-sub">Ada pesan penting buat kamu nih... scroll dulu yaaa 👇</p>
+  </div>
+
+  <!-- Reasons -->
+  <div class="section-title">Alasan kenapa aku suka banget sama ubub 🥰</div>
+
+  <div class="reasons-grid">
+    <div class="reason-card">
+      <span class="reason-icon">😂</span>
+      <div class="reason-text">bubub lucuu</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">✨</span>
+      <div class="reason-text">ubub cantik</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🌙</span>
+      <div class="reason-text">ubub bikin kangen</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🍕</span>
+      <div class="reason-text">ubub suka maem</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🤗</span>
+      <div class="reason-text">ubububububub</div>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">💌</span>
+      <div class="reason-text">love ubub</div>
+    </div>
+  </div>
+
+  <!-- Meter -->
+  <div class="hero-card" style="gap:0.8rem; display:flex; flex-direction:column; align-items:center;">
+    <span style="font-size:2rem;">📊</span>
+    <div style="font-family:'Pacifico',cursive; color:var(--deep); font-size:1.2rem;">Seberapa besar rasa sayangku?</div>
+    <div style="width:100%; background:var(--soft); border-radius:99px; height:28px; overflow:hidden; position:relative;">
+      <div id="loveMeter" style="height:100%; width:0%; background:linear-gradient(90deg,var(--pink),var(--purple)); border-radius:99px; transition:width 2s cubic-bezier(.22,1,.36,1); display:flex; align-items:center; justify-content:flex-end; padding-right:10px;">
+        <span style="font-size:0.75rem; font-weight:800; color:white; white-space:nowrap;">TAK TERHINGGA 💕</span>
+      </div>
+    </div>
+    <div style="font-size:0.85rem; color:#c2185b; font-weight:700;">(meter-nya udah penuh bahkan sebelum diisi 😭)</div>
+  </div>
+
+  <!-- Question -->
+  <div class="question-card">
+    <div class="question-text">Kamu masih mau jadi cewek aku kan? 🥺👉👈</div>
+    <div class="btn-row">
+      <button class="btn-yes" onclick="sayYes()">Iya dong! 💖</button>
+      <button class="btn-no" id="noBtn">Gak mau 😤</button>
+    </div>
+    <div style="font-size:0.8rem; margin-top:1rem; opacity:0.8; font-weight:700;">(tombol "gak mau"-nya bakal kabur terus kok 😏)</div>
+  </div>
+
+  <!-- Stickers -->
+  <div class="sticker-row">
+    <span class="sticker">🌸</span>
+    <span class="sticker">💖</span>
+    <span class="sticker">🌈</span>
+    <span class="sticker">🐻</span>
+    <span class="sticker">🌺</span>
+  </div>
+
+  <div class="footer-text">dibuat dengan 💕 khusus buat ubub</div>
+</div>
+
+<script>
+  // Floating hearts
+  const emojis = ['💖','💕','💗','💓','🌸','✨','💘','💝','🌷','💌'];
+  const bg = document.getElementById('bgHearts');
+
+  function spawnHeart() {
+    const h = document.createElement('div');
+    h.className = 'heart-float';
+    h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = (1 + Math.random() * 1.8) + 'rem';
+    const dur = 5 + Math.random() * 8;
+    h.style.animationDuration = dur + 's';
+    h.style.animationDelay = Math.random() * 3 + 's';
+    bg.appendChild(h);
+    setTimeout(() => h.remove(), (dur + 3) * 1000);
+  }
+
+  setInterval(spawnHeart, 600);
+  for (let i = 0; i < 8; i++) spawnHeart();
+
+  // Love meter fill on load
+  setTimeout(() => {
+    document.getElementById('loveMeter').style.width = '100%';
+  }, 600);
+
+  // No button runs away using transform (tidak hilang dari layar)
+  const noBtn = document.getElementById('noBtn');
+  let totalX = 0, totalY = 0;
+
+  function runAway() {
+    const steps = [[130,0],[-130,0],[0,80],[0,-80],[110,70],[-110,70],[110,-70],[-110,-70]];
+    const [dx, dy] = steps[Math.floor(Math.random() * steps.length)];
+    totalX += dx;
+    totalY += dy;
+    const maxX = window.innerWidth * 0.38;
+    const maxY = window.innerHeight * 0.28;
+    totalX = Math.max(-maxX, Math.min(maxX, totalX));
+    totalY = Math.max(-maxY, Math.min(maxY, totalY));
+    noBtn.style.transition = 'transform 0.3s ease';
+    noBtn.style.transform = `translate(${totalX}px, ${totalY}px)`;
+  }
+
+  noBtn.addEventListener('mouseover', runAway);
+  noBtn.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    runAway();
+  }, { passive: false });
+
+  function sayYes() {
+    // Hide no button if floated
+    const no = document.getElementById('noBtn');
+    if (no) no.style.display = 'none';
+    document.getElementById('winnerOverlay').classList.add('show');
+    // Burst of hearts
+    for (let i = 0; i < 20; i++) {
+      setTimeout(spawnHeart, i * 80);
+    }
+  }
+
+  function closeWinner() {
+    document.getElementById('winnerOverlay').classList.remove('show');
+    const no = document.getElementById('noBtn');
+    if (no) { no.style.display = ''; no.style.position = ''; }
+  }
+</script>
+</body>
+</html>
