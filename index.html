@@ -386,7 +386,7 @@
     <div class="question-text">Kamu masih mau jadi cewek aku kan? 🥺👉👈</div>
     <div class="btn-row">
       <button class="btn-yes" onclick="sayYes()">Iya dong! 💖</button>
-      <button class="btn-no" id="noBtn" onmouseover="runAway(this)" ontouchstart="runAway(this)">Gak mau 😤</button>
+      <button class="btn-no" id="noBtn">Gak mau 😤</button>
     </div>
     <div style="font-size:0.8rem; margin-top:1rem; opacity:0.8; font-weight:700;">(tombol "gak mau"-nya bakal kabur terus kok 😏)</div>
   </div>
@@ -429,18 +429,28 @@
     document.getElementById('loveMeter').style.width = '100%';
   }, 600);
 
-  // No button runs away
-  function runAway(btn) {
-    const vw = window.innerWidth - 120;
-    const vh = window.innerHeight - 60;
-    const x = Math.random() * vw;
-    const y = Math.random() * vh;
-    btn.style.position = 'fixed';
-    btn.style.left = x + 'px';
-    btn.style.top = y + 'px';
-    btn.style.zIndex = 200;
-    btn.style.transition = 'left 0.25s, top 0.25s';
+  // No button runs away using transform (tidak hilang dari layar)
+  const noBtn = document.getElementById('noBtn');
+  let totalX = 0, totalY = 0;
+
+  function runAway() {
+    const steps = [[130,0],[-130,0],[0,80],[0,-80],[110,70],[-110,70],[110,-70],[-110,-70]];
+    const [dx, dy] = steps[Math.floor(Math.random() * steps.length)];
+    totalX += dx;
+    totalY += dy;
+    const maxX = window.innerWidth * 0.38;
+    const maxY = window.innerHeight * 0.28;
+    totalX = Math.max(-maxX, Math.min(maxX, totalX));
+    totalY = Math.max(-maxY, Math.min(maxY, totalY));
+    noBtn.style.transition = 'transform 0.3s ease';
+    noBtn.style.transform = `translate(${totalX}px, ${totalY}px)`;
   }
+
+  noBtn.addEventListener('mouseover', runAway);
+  noBtn.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    runAway();
+  }, { passive: false });
 
   function sayYes() {
     // Hide no button if floated
